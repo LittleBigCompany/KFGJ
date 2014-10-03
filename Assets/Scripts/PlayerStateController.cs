@@ -19,6 +19,7 @@ public class PlayerStateController : MonoBehaviour {
     public string EndOfTimeString = "You're too slow!!";
     public string WallHitString = "You're retarted!!";
     public string DefaultDeathString = "You are dead!";
+    public Explosion ExplosionPlane;
 
     private State currentState = State.Alive;
     private float timer = 0.0f;
@@ -27,6 +28,7 @@ public class PlayerStateController : MonoBehaviour {
 	void Start () 
     {
         DeathText.enabled = false;
+        ExplosionPlane.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -35,7 +37,11 @@ public class PlayerStateController : MonoBehaviour {
         if (currentState == State.Dead)
         {
             timer += Time.deltaTime;
-            if (!UranusAudio.isPlaying && timer > UranusAudio.clip.length / 2.0f) 
+            if(timer > UranusAudio.clip.length / 4.0f)
+            {
+                ExplosionPlane.enabled = true;
+            }
+            if (timer > UranusAudio.clip.length / 2.0f) 
             {
                 DeathText.enabled = true;
             }
