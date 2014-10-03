@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Scripts/Worker/WorkerScript",0)]
+
 public class Worker : MonoBehaviour {
 
     private bool playerDetected;
