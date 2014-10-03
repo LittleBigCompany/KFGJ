@@ -13,12 +13,14 @@ public class PlayerStateController : MonoBehaviour {
         }
     }
 
+    public AudioSource UranusAudio;
     public GUIText DeathText;
     public string EndOfTimeString = "You're too slow!!";
     public string WallHitString = "You're retarted!!";
     public string DefaultDeathString = "You are dead!";
 
     private State currentState = State.Alive;
+    private float timer = 0.0f;
 
 	// Use this for initialization
 	void Start () 
@@ -29,13 +31,21 @@ public class PlayerStateController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-
+        if (currentState == State.Dead)
+        {
+            timer += Time.deltaTime;
+            if (!UranusAudio.isPlaying && timer > UranusAudio.clip.length / 2.0f) 
+            {
+                DeathText.enabled = true;
+            }
+        }
 	}
 
     public void Die(string cause = "Deafult")
     {
         //Some nice explosion particles will be invoked here
         currentState = State.Dead;
+        UranusAudio.PlayOneShot(UranusAudio.clip);
         switch(cause)
         {
             case "EndOfTime":
@@ -48,6 +58,5 @@ public class PlayerStateController : MonoBehaviour {
                 DeathText.text = DefaultDeathString;
                 break;
         }
-        DeathText.enabled = true;
     }
 }
