@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [Range(5.0f, 30.0f)]
     public float MovingVerticalSpeed = 10.0f;
     [Range(1.0f, 30.0f)]
-    public float MovingHorizontalSpeed = 10.0f;
+    public float MovingHorizontalSpeed = 2.0f;
     [Range(0.0f, 1.0f)]
-    public float HandsMovingVerticalSpeed = 0.8f;
+    public float HandsMovingVerticalSpeed = 0.75f;
 
     public GameObject LeftHand;
     public GameObject RightHand;
