@@ -10,15 +10,18 @@ public class Timer : MonoBehaviour {
     public PlayerStateController StateController;
     public GUIText GUITimer;
     public bool ShowTimer = true;
+    public AudioSource PlayerAudio;
 
-    private float time = 0.0f;
     private float timer = 0.0f;
+    private bool isGeigerPlaying = false;
+    private float soundTimer = 0.0f;
+    private float soundDuration = 0.0f;
 
 	// Use this for initialization
 	void Start () 
     {
-        time = TimeLeft * 60.0f;
         GUITimer.enabled = ShowTimer;
+        soundDuration = PlayerAudio.clip.length;
 	}
 	
 	// Update is called once per frame
@@ -27,7 +30,26 @@ public class Timer : MonoBehaviour {
         if (StateController.CurrentState == State.Alive)
         {
             timer += Time.deltaTime;
-            if (timer > TimeLeft)
+            float timeLeft = (60 * TimeLeft - timer) / 60.0f;
+            if(timeLeft < 1.0f)
+            {
+                if(!isGeigerPlaying)
+                {
+                    PlayerAudio.PlayOneShot(PlayerAudio.clip);
+                    isGeigerPlaying = true;
+                }
+                else
+                {
+                    soundTimer += Time.deltaTime;
+                    if(soundTimer > soundDuration + timeLeft)
+                    {
+                        soundTimer = 0.0f;
+                        isGeigerPlaying = false;
+                    }
+                }
+
+            }
+            if (timer / 60.0f > TimeLeft)
             {
                 StateController.Die("EndOfTime");
             }
