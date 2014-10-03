@@ -8,7 +8,8 @@ public class CameraRotation : MonoBehaviour {
     public float SensitivyRoll = 5.0f;
     public float MaxLookUpDownAngle = 30.0f;
     public float MaxLookRightLeftAngle = 30.0f;
-    public bool InverseCamera = false;
+    public bool InverseXInput = false;
+    public bool InverseYInput = false;
 
     private float rightLeftRotation = 0.0f;
     private float upDownRotation = 0.0f;
@@ -23,9 +24,9 @@ public class CameraRotation : MonoBehaviour {
     void Update()
     {
         Vector3 newRotation = new Vector3(0, rightLeftRotation, 0);
-        if (InverseCamera)
+        if (InverseXInput)
         {
-            rightLeftRotation -= Input.GetAxis("MouseX") * SensitivyRoll * Time.deltaTime;
+            rightLeftRotation -= Input.GetAxis("Mouse X") * SensitivyRoll * Time.deltaTime;
         }
         else
         {
@@ -35,13 +36,13 @@ public class CameraRotation : MonoBehaviour {
         newRotation = new Vector3(0, rightLeftRotation, 0);
         this.transform.localRotation = Quaternion.Euler(newRotation);
 
-        if (InverseCamera)
+        if (InverseYInput)
         {
             upDownRotation -= Input.GetAxis("Mouse Y") * SensitivyRoll * Time.deltaTime;
         }
         else
         {
-            upDownRotation -= -Input.GetAxis("Mouse Y") * SensitivyRoll * Time.deltaTime;
+            upDownRotation += Input.GetAxis("Mouse Y") * SensitivyRoll * Time.deltaTime;
         }
         upDownRotation = Mathf.Clamp(upDownRotation, -MaxLookUpDownAngle, MaxLookUpDownAngle);
 
