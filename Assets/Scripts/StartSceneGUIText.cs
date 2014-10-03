@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu("Scripts/GUI/Machine Text", 0)]
 
@@ -9,6 +10,7 @@ public class StartSceneGUIText : MonoBehaviour {
     public float Rate = 1.0f;
     [Range(0.0f, 1.0f)]
     public float SoundDelay = 150;
+    public List<string> TextLines;
 
     private string text = "";
     private float timer = 0.0f;
@@ -18,8 +20,10 @@ public class StartSceneGUIText : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-	    text = "Tu bedzie mega fajny tekst wymyslony przez majstra\n";
-        text += "A tu bedzie druga linijka\n";
+        foreach(string txt in TextLines)
+        {
+            text += txt + "\n";
+        }
         text += "\nNacisnij spacje";
         if(this.guiText == null)
         {
