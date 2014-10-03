@@ -11,13 +11,11 @@ public class Timer : MonoBehaviour {
     public GUIText GUITimer;
     public bool ShowTimer = true;
 
-    private float time = 0.0f;
     private float timer = 0.0f;
 
 	// Use this for initialization
 	void Start () 
     {
-        time = TimeLeft * 60.0f;
         GUITimer.enabled = ShowTimer;
 	}
 	
