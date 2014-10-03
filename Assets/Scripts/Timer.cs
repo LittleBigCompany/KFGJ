@@ -24,14 +24,17 @@ public class Timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        timer += Time.deltaTime;
-        if(timer > TimeLeft)
+        if (StateController.CurrentState == State.Alive)
         {
-            StateController.Die("EndOfTime");
-        }
-        if(ShowTimer)
-        {
-            GUITimer.text = ConvertSecondsToMinutes(60 * TimeLeft - timer);
+            timer += Time.deltaTime;
+            if (timer > TimeLeft)
+            {
+                StateController.Die("EndOfTime");
+            }
+            if (ShowTimer)
+            {
+                GUITimer.text = ConvertSecondsToMinutes(60 * TimeLeft - timer);
+            }
         }
 	}
 
