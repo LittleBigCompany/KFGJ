@@ -7,6 +7,8 @@ public class StartSceneGUIText : MonoBehaviour {
 
     [Range(0.0001f, 1.0f)]
     public float Rate = 1.0f;
+    [Range(0.0f, 1.0f)]
+    public float SoundDelay = 150;
 
     private string text = "";
     private float timer = 0.0f;
@@ -39,6 +41,7 @@ public class StartSceneGUIText : MonoBehaviour {
             if (timer > Rate)
             {
                 this.guiText.text += text[i];
+                this.GetComponent<AudioSource>().PlayDelayed(SoundDelay);
                 i++;
                 timer = 0.0f;
             }
