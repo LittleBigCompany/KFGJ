@@ -3,6 +3,7 @@ using System.Collections;
 
 public enum State { Alive = 1, Dead };
 
+[AddComponentMenu("Scripts/Player/State Manager")]
 public class PlayerStateController : MonoBehaviour {
 
     public State CurrentState
