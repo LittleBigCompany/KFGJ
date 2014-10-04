@@ -19,7 +19,6 @@ public class RodEnding : MonoBehaviour {
 
     void OnTriggerStay(Collider col)
     {
-        Debug.Log(col.gameObject.tag);
         if(col.gameObject.layer == LayerMask.NameToLayer("Uranus"))
         {
             StateController.Die("UranusDetonation");
