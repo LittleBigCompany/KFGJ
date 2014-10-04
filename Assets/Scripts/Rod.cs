@@ -52,7 +52,7 @@ public class Rod : MonoBehaviour {
         {
             isRightHandHoldingMe = true;
         }
-        else if(col.gameObject.tag == "Ground")
+        else if(col.gameObject.tag == "Room")
         {
             StateController.Die("RodFall");
         }
