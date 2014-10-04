@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
                 if (LeftHand.transform.rotation.x - baseHandsRotation.x > 0.0f) rightHandFlag = true;
                 else if (RightHand.transform.rotation.x - baseHandsRotation.x > 0.0f) rightHandFlag = false;
             }
-            //Turning Left/Right 90 degres
+            //Turning Left/Right 90 degrees
             if (Input.GetButtonDown("TurnLeft"))
             {
                 turnLeftFlag = true;
