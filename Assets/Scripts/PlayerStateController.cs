@@ -22,6 +22,7 @@ public class PlayerStateController : MonoBehaviour {
     public string WallHitString = "You're retarted!!";
     public string WorkerString = "Are you blind or something?!";
     public string RodFallString = "Noob!\nYou can't even hold rod!";
+    public string UranusDetonationString = "What the fuck was that?!\nRun!!!!";
     public string DefaultDeathString = "You are dead!";
     [Space(5)]
     [Header("")]
@@ -56,7 +57,9 @@ public class PlayerStateController : MonoBehaviour {
 
     public void Die(string cause = "Deafult")
     {
-        //Some nice explosion particles will be invoked here
+        //We cannot die twice
+        if (currentState == State.Dead) return;
+
         currentState = State.Dead;
         UranusAudio.PlayOneShot(UranusAudio.clip);
         switch(cause)
@@ -72,6 +75,9 @@ public class PlayerStateController : MonoBehaviour {
                 break;
             case "RodFall":
                 DeathText.text = RodFallString;
+                break;
+            case "UranusDetonation":
+                DeathText.text = UranusDetonationString;
                 break;
             default:
                 DeathText.text = DefaultDeathString;
