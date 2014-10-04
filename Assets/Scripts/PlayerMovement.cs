@@ -23,9 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private bool turnRightFlag;
     private int rotationCounter;
 
-
-
-
 	// Use this for initialization
 	void Start () 
     {
