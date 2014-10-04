@@ -15,9 +15,16 @@ public class PlayerRunningSoundController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (Input.GetAxis("Vertical") != 0.0f || Input.GetAxis("Horizontal") != 0.0f)
+        if (Player.GetComponent<PlayerMovement>().StateCont.CurrentState == State.Alive)
         {
-            this.GetComponent<AudioSource>().mute = false;
+            if (Input.GetAxis("Vertical") != 0.0f || Input.GetAxis("Horizontal") != 0.0f)
+            {
+                this.GetComponent<AudioSource>().mute = false;
+            }
+            else
+            {
+                this.GetComponent<AudioSource>().mute = true;
+            }
         }
         else
         {

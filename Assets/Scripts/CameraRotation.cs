@@ -18,7 +18,6 @@ public class CameraRotation : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-	
 	}
 	
 	// Update is called once per frame
@@ -27,11 +26,11 @@ public class CameraRotation : MonoBehaviour {
         Vector3 newRotation = new Vector3(0, rightLeftRotation, 0);
         if (InverseXInput)
         {
-            rightLeftRotation -= Input.GetAxis("Mouse X") * SensitivyXAxis * Time.deltaTime;
+            rightLeftRotation -= Input.GetAxis("CameraX") * SensitivyXAxis * Time.deltaTime;
         }
         else
         {
-            rightLeftRotation += Input.GetAxis("Mouse X") * SensitivyXAxis * Time.deltaTime;
+            rightLeftRotation += Input.GetAxis("CameraX") * SensitivyXAxis * Time.deltaTime;
         }
         rightLeftRotation = Mathf.Clamp(rightLeftRotation, -MaxLookRightLeftAngle, MaxLookRightLeftAngle);
         newRotation = new Vector3(0, rightLeftRotation, 0);
@@ -39,11 +38,11 @@ public class CameraRotation : MonoBehaviour {
 
         if (InverseYInput)
         {
-            upDownRotation -= Input.GetAxis("Mouse Y") * SensitivyYAxis * Time.deltaTime;
+            upDownRotation -= Input.GetAxis("CameraY") * SensitivyYAxis * Time.deltaTime;
         }
         else
         {
-            upDownRotation += Input.GetAxis("Mouse Y") * SensitivyYAxis * Time.deltaTime;
+            upDownRotation += Input.GetAxis("CameraY") * SensitivyYAxis * Time.deltaTime;
         }
         upDownRotation = Mathf.Clamp(upDownRotation, -MaxLookUpDownAngle, MaxLookUpDownAngle);
 

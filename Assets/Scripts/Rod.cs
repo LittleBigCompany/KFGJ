@@ -9,8 +9,7 @@ public class Rod : MonoBehaviour {
     public Transform RightEnding;
     public PlayerStateController StateController;
 
-    private bool isLeftHandHoldingMe = false;
-    private bool isRightHandHoldingMe = false;
+    private Vector3 reactorPos = Vector3.zero;
 
 	// Use this for initialization
 	void Start () 
@@ -25,50 +24,38 @@ public class Rod : MonoBehaviour {
         {
             if (Input.GetButtonDown("TurnLeft"))
             {
-                Debug.Log("Adding right force");
                 this.rigidbody.AddForceAtPosition(this.transform.parent.parent.right * CentrifugalForce, LeftEnding.position);
             }
             if (Input.GetButtonDown("TurnRight"))
             {
-                Debug.Log("Adding left force");
                 this.rigidbody.AddForceAtPosition(-this.transform.parent.parent.right * CentrifugalForce, LeftEnding.position);
             }
         }
+
+        if(reactorPos != Vector3.zero)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, reactorPos, 0.5f);
+        }
 	}
 
-    void LateUpdate()
+    public void MoveToReactorSlot(Vector3 reactorPosition)
     {
-        if (!isLeftHandHoldingMe && !isRightHandHoldingMe)
-        {
-            this.transform.parent = null;
-        }
+        this.rigidbody.useGravity = false;
+        this.transform.parent = null;
+        reactorPos = reactorPosition;
     }
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "LeftHand")
+        if(col.gameObject.tag == "Room")
         {
-            isLeftHandHoldingMe = true;
-        }
-        else if (col.gameObject.tag == "RightHand")
-        {
-            isRightHandHoldingMe = true;
-        }
-        else if(col.gameObject.tag == "Ground")
-        {
+            this.GetComponent<AudioSource>().Play();
             StateController.Die("RodFall");
         }
-    }
-
-    void OnCollisionExit(Collision col)
-    {
-        if (col.gameObject.tag == "LeftHand")
+        else if(col.gameObject.tag == "Player")
         {
-            isLeftHandHoldingMe = false;
-        }
-        else if (col.gameObject.tag == "RightHand")
-        {
-            isRightHandHoldingMe = false;
+            Debug.Log("Hello");
+            this.transform.parent = col.transform.GetChild(2);
         }
     }
 }
