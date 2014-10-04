@@ -22,12 +22,20 @@ public class Reactor : MonoBehaviour {
         if(col.gameObject.tag == "Rod")
         {
             StateController.Win();
-            this.collider.enabled = false;
+            //this.collider.enabled = false;
             col.gameObject.GetComponent<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
         }
         else if(col.gameObject.tag == "Player")
         {
             StateController.Win();
+            if (col.gameObject.GetComponentInChildren<Rod>() != null)
+            {
+                col.gameObject.GetComponentInChildren<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
+            }
+            else
+            {
+                FindObjectOfType<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
+            }
         }
     }
 }

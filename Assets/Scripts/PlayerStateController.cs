@@ -95,8 +95,11 @@ public class PlayerStateController : MonoBehaviour {
 
     public void Win()
     {
-        currentState = State.Won;
-        WinningGUIText.text = WinningString;
-        WinningGUIText.enabled = true;
+        if (currentState == State.Alive)
+        {
+            currentState = State.Won;
+            WinningGUIText.text = WinningString;
+            WinningGUIText.enabled = true;
+        }
     }
 }
