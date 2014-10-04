@@ -5,9 +5,9 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
-    [Range(5.0f, 30.0f)]
+    [Range(5.0f, 100.0f)]
     public float MovingVerticalSpeed = 10.0f;
-    [Range(1.0f, 30.0f)]
+    [Range(1.0f, 100.0f)]
     public float MovingHorizontalSpeed = 2.0f;
     [Range(0.0f, 1.0f)]
     public float HandsMovingVerticalSpeed = 0.75f;
@@ -157,6 +157,15 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Obstacle")
+        {
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, new Quaternion(this.transform.localRotation.x - 0.3f, this.transform.localRotation.y, this.transform.localRotation.z, this.transform.localRotation.w), 0.4f);
+            //col.gameObject.collider.enabled = false;           
         }
     }
 }
