@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a88ea8a0e85d51e4da35026621b7ffe9
+guid: 2b72f785104bb7243ae73f829a60a764
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Hand
+    4300000: Wall
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -28,7 +28,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .100000001
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
