@@ -9,18 +9,19 @@ public class PlayerRunningSoundController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        if (Input.GetAxis("Vertical") != 0.0f)
+        if (Input.GetAxis("Vertical") != 0.0f || Input.GetAxis("Horizontal") != 0.0f)
         {
-            this.GetComponent<Animator>().SetFloat("velocity", Player.velocity.magnitude);
+            this.GetComponent<AudioSource>().mute = false;
         }
         else
         {
-            this.GetComponent<Animator>().SetFloat("velocity", 0.0f);
+            this.GetComponent<AudioSource>().mute = true;
         }
 	}
 }

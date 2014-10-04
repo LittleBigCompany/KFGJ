@@ -5,7 +5,8 @@ using System.Collections;
 
 public class CameraRotation : MonoBehaviour {
 
-    public float SensitivyRoll = 5.0f;
+    public float SensitivyXAxis = 25.0f;
+    public float SensitivyYAxis = 45.0f;
     public float MaxLookUpDownAngle = 30.0f;
     public float MaxLookRightLeftAngle = 30.0f;
     public bool InverseXInput = false;
@@ -26,11 +27,11 @@ public class CameraRotation : MonoBehaviour {
         Vector3 newRotation = new Vector3(0, rightLeftRotation, 0);
         if (InverseXInput)
         {
-            rightLeftRotation -= Input.GetAxis("Mouse X") * SensitivyRoll * Time.deltaTime;
+            rightLeftRotation -= Input.GetAxis("Mouse X") * SensitivyXAxis * Time.deltaTime;
         }
         else
         {
-            rightLeftRotation += Input.GetAxis("Mouse X") * SensitivyRoll * Time.deltaTime;
+            rightLeftRotation += Input.GetAxis("Mouse X") * SensitivyXAxis * Time.deltaTime;
         }
         rightLeftRotation = Mathf.Clamp(rightLeftRotation, -MaxLookRightLeftAngle, MaxLookRightLeftAngle);
         newRotation = new Vector3(0, rightLeftRotation, 0);
@@ -38,11 +39,11 @@ public class CameraRotation : MonoBehaviour {
 
         if (InverseYInput)
         {
-            upDownRotation -= Input.GetAxis("Mouse Y") * SensitivyRoll * Time.deltaTime;
+            upDownRotation -= Input.GetAxis("Mouse Y") * SensitivyYAxis * Time.deltaTime;
         }
         else
         {
-            upDownRotation += Input.GetAxis("Mouse Y") * SensitivyRoll * Time.deltaTime;
+            upDownRotation += Input.GetAxis("Mouse Y") * SensitivyYAxis * Time.deltaTime;
         }
         upDownRotation = Mathf.Clamp(upDownRotation, -MaxLookUpDownAngle, MaxLookUpDownAngle);
 
