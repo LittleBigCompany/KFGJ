@@ -21,6 +21,7 @@ public class PlayerStateController : MonoBehaviour {
     public string EndOfTimeString = "You're too slow!!";
     public string WallHitString = "You're retarted!!";
     public string WorkerString = "Are you blind or something?!";
+    public string RodFallString = "Noob!\nYou can't even hold rod!";
     public string DefaultDeathString = "You are dead!";
     [Space(5)]
     [Header("")]
@@ -68,6 +69,9 @@ public class PlayerStateController : MonoBehaviour {
                 break;
             case "Worker":
                 DeathText.text = WorkerString;
+                break;
+            case "RodFall":
+                DeathText.text = RodFallString;
                 break;
             default:
                 DeathText.text = DefaultDeathString;
