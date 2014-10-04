@@ -28,7 +28,14 @@ public class Reactor : MonoBehaviour {
         else if(col.gameObject.tag == "Player")
         {
             StateController.Win();
-            col.gameObject.GetComponentInChildren<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
+            if (col.gameObject.GetComponentInChildren<Rod>() != null)
+            {
+                col.gameObject.GetComponentInChildren<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
+            }
+            else
+            {
+                FindObjectOfType<Rod>().MoveToReactorSlot(this.transform.position + RodOffsetPosition);
+            }
         }
     }
 }

@@ -44,4 +44,18 @@ public class Rod : MonoBehaviour {
         this.transform.parent = null;
         reactorPos = reactorPosition;
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Room")
+        {
+            this.GetComponent<AudioSource>().Play();
+            StateController.Die("RodFall");
+        }
+        else if(col.gameObject.tag == "Player")
+        {
+            Debug.Log("Hello");
+            this.transform.parent = col.transform.GetChild(2);
+        }
+    }
 }
