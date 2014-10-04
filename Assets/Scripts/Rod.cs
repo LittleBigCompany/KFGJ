@@ -9,8 +9,8 @@ public class Rod : MonoBehaviour {
     public Transform RightEnding;
     public PlayerStateController StateController;
 
-    private bool isLeftHandHoldingMe = false;
-    private bool isRightHandHoldingMe = false;
+    private bool isLeftHandHoldingMe = true;
+    private bool isRightHandHoldingMe = true;
 
 	// Use this for initialization
 	void Start () 
@@ -25,12 +25,10 @@ public class Rod : MonoBehaviour {
         {
             if (Input.GetButtonDown("TurnLeft"))
             {
-                Debug.Log("Adding right force");
                 this.rigidbody.AddForceAtPosition(this.transform.parent.parent.right * CentrifugalForce, LeftEnding.position);
             }
             if (Input.GetButtonDown("TurnRight"))
             {
-                Debug.Log("Adding left force");
                 this.rigidbody.AddForceAtPosition(-this.transform.parent.parent.right * CentrifugalForce, LeftEnding.position);
             }
         }

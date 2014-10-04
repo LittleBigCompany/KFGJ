@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: f13241425a2a4304c8cc435eb114eb78
-=======
-guid: 6d7a24104205ff249973acbffa8ef510
->>>>>>> 559c90123eaaf9e44dd2725628ef57a16c04086c
+guid: a88ea8a0e85d51e4da35026621b7ffe9
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -11,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Rod
+    4300000: Hand
     9500000: //RootNode
   materials:
     importMaterials: 1
