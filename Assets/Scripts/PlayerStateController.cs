@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum State { Alive = 1, Dead };
+public enum State { Alive = 1, Dead, Won };
 
 [AddComponentMenu("Scripts/Player/State Manager")]
 public class PlayerStateController : MonoBehaviour {
@@ -15,7 +15,8 @@ public class PlayerStateController : MonoBehaviour {
     }
 
     public AudioSource UranusAudio;
-    public GUIText DeathText;
+    public GUIText DeathGUIText;
+    public GUIText WinningGUIText;
     [Space(5)]
     [Header("Death texts by cause")]
     public string EndOfTimeString = "You're too slow!!";
@@ -24,6 +25,9 @@ public class PlayerStateController : MonoBehaviour {
     public string RodFallString = "Noob!\nYou can't even hold rod!";
     public string UranusDetonationString = "What the fuck was that?!\nRun!!!!";
     public string DefaultDeathString = "You are dead!";
+    [Space(5)]
+    [Header("Winning string")]
+    public string WinningString = "You're lucky man!";
     [Space(5)]
     [Header("")]
     public Explosion ExplosionPlane;
@@ -34,7 +38,8 @@ public class PlayerStateController : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-        DeathText.enabled = false;
+        DeathGUIText.enabled = false;
+        WinningGUIText.enabled = false;
         ExplosionPlane.enabled = false;
 	}
 	
@@ -50,7 +55,7 @@ public class PlayerStateController : MonoBehaviour {
             }
             if (timer > UranusAudio.clip.length / 2.0f) 
             {
-                DeathText.enabled = true;
+                DeathGUIText.enabled = true;
             }
         }
 	}
@@ -60,28 +65,38 @@ public class PlayerStateController : MonoBehaviour {
         //We cannot die twice
         if (currentState == State.Dead) return;
 
+        //We cannot die after we win
+        if (currentState == State.Won) return;
+
         currentState = State.Dead;
         UranusAudio.PlayOneShot(UranusAudio.clip);
         switch(cause)
         {
             case "EndOfTime":
-                DeathText.text = EndOfTimeString;
+                DeathGUIText.text = EndOfTimeString;
                 break;
             case "WallHit":
-                DeathText.text = WallHitString;
+                DeathGUIText.text = WallHitString;
                 break;
             case "Worker":
-                DeathText.text = WorkerString;
+                DeathGUIText.text = WorkerString;
                 break;
             case "RodFall":
-                DeathText.text = RodFallString;
+                DeathGUIText.text = RodFallString;
                 break;
             case "UranusDetonation":
-                DeathText.text = UranusDetonationString;
+                DeathGUIText.text = UranusDetonationString;
                 break;
             default:
-                DeathText.text = DefaultDeathString;
+                DeathGUIText.text = DefaultDeathString;
                 break;
         }
+    }
+
+    public void Win()
+    {
+        currentState = State.Won;
+        WinningGUIText.text = WinningString;
+        WinningGUIText.enabled = true;
     }
 }

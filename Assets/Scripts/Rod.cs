@@ -9,8 +9,7 @@ public class Rod : MonoBehaviour {
     public Transform RightEnding;
     public PlayerStateController StateController;
 
-    private bool isLeftHandHoldingMe = true;
-    private bool isRightHandHoldingMe = true;
+    private Vector3 reactorPos = Vector3.zero;
 
 	// Use this for initialization
 	void Start () 
@@ -32,41 +31,17 @@ public class Rod : MonoBehaviour {
                 this.rigidbody.AddForceAtPosition(-this.transform.parent.parent.right * CentrifugalForce, LeftEnding.position);
             }
         }
+
+        if(reactorPos != Vector3.zero)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, reactorPos, 0.5f);
+        }
 	}
 
-    void LateUpdate()
+    public void MoveToReactorSlot(Vector3 reactorPosition)
     {
-        if (!isLeftHandHoldingMe && !isRightHandHoldingMe)
-        {
-            this.transform.parent = null;
-        }
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "LeftHand")
-        {
-            isLeftHandHoldingMe = true;
-        }
-        else if (col.gameObject.tag == "RightHand")
-        {
-            isRightHandHoldingMe = true;
-        }
-        else if(col.gameObject.tag == "Room")
-        {
-            StateController.Die("RodFall");
-        }
-    }
-
-    void OnCollisionExit(Collision col)
-    {
-        if (col.gameObject.tag == "LeftHand")
-        {
-            isLeftHandHoldingMe = false;
-        }
-        else if (col.gameObject.tag == "RightHand")
-        {
-            isRightHandHoldingMe = false;
-        }
+        this.rigidbody.useGravity = false;
+        this.transform.parent = null;
+        reactorPos = reactorPosition;
     }
 }
