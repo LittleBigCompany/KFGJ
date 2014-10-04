@@ -14,6 +14,13 @@ public class PlayerRunningSoundController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        this.GetComponent<Animator>().SetFloat("velocity", Player.velocity.magnitude);
+        if (Input.GetAxis("Vertical") != 0.0f)
+        {
+            this.GetComponent<Animator>().SetFloat("velocity", Player.velocity.magnitude);
+        }
+        else
+        {
+            this.GetComponent<Animator>().SetFloat("velocity", 0.0f);
+        }
 	}
 }

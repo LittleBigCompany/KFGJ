@@ -16,9 +16,14 @@ public class PlayerStateController : MonoBehaviour {
 
     public AudioSource UranusAudio;
     public GUIText DeathText;
+    [Space(5)]
+    [Header("Death texts by cause")]
     public string EndOfTimeString = "You're too slow!!";
     public string WallHitString = "You're retarted!!";
+    public string WorkerString = "Are you blind or something?!";
     public string DefaultDeathString = "You are dead!";
+    [Space(5)]
+    [Header("")]
     public Explosion ExplosionPlane;
 
     private State currentState = State.Alive;
@@ -60,6 +65,9 @@ public class PlayerStateController : MonoBehaviour {
                 break;
             case "WallHit":
                 DeathText.text = WallHitString;
+                break;
+            case "Worker":
+                DeathText.text = WorkerString;
                 break;
             default:
                 DeathText.text = DefaultDeathString;

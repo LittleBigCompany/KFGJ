@@ -5,6 +5,8 @@ using System.Collections;
 
 public class Worker : MonoBehaviour {
 
+    public PlayerStateController StateController;
+
     private bool playerDetected;
 
 	// Use this for initialization
@@ -27,7 +29,10 @@ public class Worker : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Player") Debug.Log("got youre nose!");
+        if (col.gameObject.tag == "Player")
+        {
+            StateController.Die("Worker");
+        }
     }
 
 

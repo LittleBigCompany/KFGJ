@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetAxis("Horizontal") < -0.3f)
             {
-                rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * -MovingHorizontalSpeed, 0.1f);
+                rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * MovingHorizontalSpeed, 0.1f);
                 if (rightHandFlag)
                 {
                     RightHand.transform.rotation = Quaternion.Lerp(RightHand.transform.rotation, new Quaternion(RightHand.transform.rotation.x + 0.01f, RightHand.transform.rotation.y, RightHand.transform.rotation.z, RightHand.transform.rotation.w), HandsMovingVerticalSpeed);
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetAxis("Horizontal") > 0.3f)
             {
-                rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * MovingHorizontalSpeed, 0.1f);
+                rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * -MovingHorizontalSpeed, 0.1f);
                 if (rightHandFlag)
                 {
                     RightHand.transform.rotation = Quaternion.Lerp(RightHand.transform.rotation, new Quaternion(RightHand.transform.rotation.x + 0.01f, RightHand.transform.rotation.y, RightHand.transform.rotation.z, RightHand.transform.rotation.w), HandsMovingVerticalSpeed);
