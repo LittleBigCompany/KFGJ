@@ -5,7 +5,7 @@ using System.Collections;
 
 public class DrawingsManager : MonoBehaviour {
 
-    public Texture[] Textures = new Texture[6];
+    public Texture[] Textures = new Texture[12];
 
     private int chose;
 
