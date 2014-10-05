@@ -54,7 +54,6 @@ public class Rod : MonoBehaviour {
         }
         else if(col.gameObject.tag == "Player")
         {
-            Debug.Log("Hello");
             this.transform.parent = col.transform.GetChild(2);
         }
     }
