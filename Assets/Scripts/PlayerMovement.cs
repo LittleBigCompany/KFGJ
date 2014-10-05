@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool leftFirst = false;
     private bool rightFirst = false;
     private int localRotationCounter;
+    private bool walkForward;
 
 	// Use this for initialization
 	void Start () 
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetAxis("Vertical") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * MovingVerticalSpeed, 0.1f);
+                walkForward = true;
                 if (!leftHandUp && !rightHandUp)
                 {
                     if (rightHandFlag)
@@ -69,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetAxis("Vertical") > 0.3f)
             {
+                walkForward = true;
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * -MovingVerticalSpeed, 0.1f);
                 if (!leftHandUp && !rightHandUp)
                 {
@@ -87,11 +90,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
+            if (Input.GetAxis("Vertical") < 0.3f && Input.GetAxis("Vertical") > -0.3f)
+            {
+                walkForward = false;
+            }
+
             //Moving Left/Right
             if (Input.GetAxis("Horizontal") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * MovingHorizontalSpeed, 0.1f);
-                if (!leftHandUp && !rightHandUp)
+                if (!leftHandUp && !rightHandUp && !walkForward)
                 {
                     if (rightHandFlag)
                     {
@@ -110,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             else if (Input.GetAxis("Horizontal") > 0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * -MovingHorizontalSpeed, 0.1f);
-                if (!leftHandUp && !rightHandUp)
+                if (!leftHandUp && !rightHandUp && !walkForward)
                 {
                     if (rightHandFlag)
                     {
@@ -157,40 +165,42 @@ public class PlayerMovement : MonoBehaviour
                 baseHandslocalRotation.y = RightHand.transform.localRotation.y;
                 if (turnLeftFlag)
                 {
-                    transform.Rotate(0.0f, -18.0f, 0.0f);
+                    transform.Rotate(0.0f, -90.0f, 0.0f);
                     localRotationCounter += 1;
                     baseHandslocalRotation = RightHand.transform.localRotation;
-                    if (localRotationCounter >= 5)
+                    turnLeftFlag = false;
+        /*            if (localRotationCounter >= 5)
                     {
                         turnLeftFlag = false;
                         //baseHandslocalRotation = new Quaternion(baseHandslocalRotation.x, transform.localRotation.y, baseHandslocalRotation.z, baseHandslocalRotation.w);
-                    }
+                    }*/
                 }
                 else if (turnRightFlag)
                 {
-                    transform.Rotate(0.0f, 18.0f, 0.0f);
+                    transform.Rotate(0.0f, 90.0f, 0.0f);
                     localRotationCounter += 1;
                     baseHandslocalRotation = RightHand.transform.localRotation;
-                    if (localRotationCounter >= 5)
+                    turnRightFlag = false;
+            /*        if (localRotationCounter >= 5)
                     {
                         turnRightFlag = false;
                        // baseHandslocalRotation = new Quaternion(baseHandslocalRotation.x, RightHand.transform.localRotation.y, baseHandslocalRotation.z, baseHandslocalRotation.w);
-                    }
+                    }*/
                 }
             }
 
             //Stuff with controlling hands
-            if(Input.GetAxis("HandsUp") < -0.3f || Input.GetMouseButtonDown(1))
+            if ((Input.GetAxis("HandsUp") < -0.0001f || Input.GetMouseButtonDown(1)) && !rightHandUp)
             {
                 rightHandUp = true;
                 leftHandUp = false;
                 handsUp = true;
             }
-            else if(Input.GetAxis("HandsUp") > 0.3f || Input.GetMouseButtonDown(0))
+            else if ((Input.GetAxis("HandsUp") > 0.0001f || Input.GetMouseButtonDown(0)) && !leftHandUp)
             {
-                rightHandUp = false;
-                leftHandUp = true;
-                handsUp = true;
+                 rightHandUp = false;
+                 leftHandUp = true;
+                 handsUp = true;
             }
 
             if(rightHandUp)
@@ -210,13 +220,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Trololololo");
                     RightHand.transform.localRotation = rightHandLocalRotBeforeHandsUp;
-                    if (RightHand.transform.localRotation.x - rightHandLocalRotBeforeHandsUp.x > 0.0f)
-                    {
-                        rightHandUp = false;
-                        rightFirst = false;
-                    }
+                    rightHandUp = false;
+                    rightFirst = false;
                 }
             }
             if(leftHandUp)
@@ -236,13 +242,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("eeeeee");
                     LeftHand.transform.localRotation = leftHandLocalRotBeforeHandsUp;
-                    if (LeftHand.transform.localRotation.x - leftHandLocalRotBeforeHandsUp.x > 0.0f)
-                    {
-                        leftHandUp = false;
-                        leftFirst = false;
-                    }
+                    leftHandUp = false;
+                    leftFirst = false;
                 }
             }
         }
