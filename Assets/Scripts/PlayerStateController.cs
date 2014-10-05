@@ -91,6 +91,7 @@ public class PlayerStateController : MonoBehaviour {
                 DeathGUIText.text = DefaultDeathString;
                 break;
         }
+        StartCoroutine(LoadLevel());
     }
 
     public void Win()
@@ -101,5 +102,13 @@ public class PlayerStateController : MonoBehaviour {
             WinningGUIText.text = WinningString;
             WinningGUIText.enabled = true;
         }
+    }
+
+    IEnumerator LoadLevel()
+    {
+        yield return new WaitForSeconds(5.0f);
+        int level = Random.Range(2, Application.levelCount);
+        Debug.Log(level);
+        Application.LoadLevel(level);
     }
 }
