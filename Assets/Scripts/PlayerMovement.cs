@@ -5,11 +5,11 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
-    [Range(5.0f, 100.0f)]
+    [Range(5.0f, 300.0f)]
     public float MovingVerticalSpeed = 10.0f;
-    [Range(1.0f, 100.0f)]
+    [Range(1.0f, 300.0f)]
     public float MovingHorizontalSpeed = 2.0f;
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 2.0f)]
     public float HandsMovingVerticalSpeed = 0.75f;
 
     public GameObject LeftHand;
