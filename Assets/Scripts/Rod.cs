@@ -20,6 +20,15 @@ public class Rod : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if(Input.GetButtonDown("TurnLeft"))
+        {
+            this.rigidbody.AddForce(this.transform.right * -10.0f, ForceMode.Impulse);
+        }
+        if(Input.GetButtonDown("TurnRight"))
+        {
+            this.rigidbody.AddForce(this.transform.right * 10.0f, ForceMode.Impulse);
+        }
+
         if (this.transform.parent != null)
         {
             if (Input.GetButtonDown("TurnLeft"))
