@@ -188,17 +188,17 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Stuff with controlling hands
-            if(Input.GetAxis("HandsUp") < -0.3f || Input.GetMouseButtonDown(1))
+            if ((Input.GetAxis("HandsUp") < -0.0001f || Input.GetMouseButtonDown(1)) && !rightHandUp)
             {
                 rightHandUp = true;
                 leftHandUp = false;
                 handsUp = true;
             }
-            else if(Input.GetAxis("HandsUp") > 0.3f || Input.GetMouseButtonDown(0))
+            else if ((Input.GetAxis("HandsUp") > 0.0001f || Input.GetMouseButtonDown(0)) && !leftHandUp)
             {
-                rightHandUp = false;
-                leftHandUp = true;
-                handsUp = true;
+                 rightHandUp = false;
+                 leftHandUp = true;
+                 handsUp = true;
             }
 
             if(rightHandUp)
@@ -218,13 +218,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Trololololo");
                     RightHand.transform.localRotation = rightHandLocalRotBeforeHandsUp;
-                    if (RightHand.transform.localRotation.x - rightHandLocalRotBeforeHandsUp.x > 0.0f)
-                    {
-                        rightHandUp = false;
-                        rightFirst = false;
-                    }
+                    rightHandUp = false;
+                    rightFirst = false;
                 }
             }
             if(leftHandUp)
@@ -244,13 +240,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("eeeeee");
                     LeftHand.transform.localRotation = leftHandLocalRotBeforeHandsUp;
-                    if (LeftHand.transform.localRotation.x - leftHandLocalRotBeforeHandsUp.x > 0.0f)
-                    {
-                        leftHandUp = false;
-                        leftFirst = false;
-                    }
+                    leftHandUp = false;
+                    leftFirst = false;
                 }
             }
         }
