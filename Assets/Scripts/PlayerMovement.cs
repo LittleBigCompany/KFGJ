@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool leftFirst = false;
     private bool rightFirst = false;
     private int localRotationCounter;
+    private bool walkForward;
 
 	// Use this for initialization
 	void Start () 
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetAxis("Vertical") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * MovingVerticalSpeed, 0.1f);
+                walkForward = true;
                 if (!leftHandUp && !rightHandUp)
                 {
                     if (rightHandFlag)
@@ -69,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetAxis("Vertical") > 0.3f)
             {
+                walkForward = true;
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * -MovingVerticalSpeed, 0.1f);
                 if (!leftHandUp && !rightHandUp)
                 {
@@ -87,11 +90,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
+            if (Input.GetAxis("Vertical") < 0.3f && Input.GetAxis("Vertical") > -0.3f)
+            {
+                walkForward = false;
+            }
+
             //Moving Left/Right
             if (Input.GetAxis("Horizontal") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * MovingHorizontalSpeed, 0.1f);
-                if (!leftHandUp && !rightHandUp)
+                if (!leftHandUp && !rightHandUp && !walkForward)
                 {
                     if (rightHandFlag)
                     {
@@ -110,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             else if (Input.GetAxis("Horizontal") > 0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * -MovingHorizontalSpeed, 0.1f);
-                if (!leftHandUp && !rightHandUp)
+                if (!leftHandUp && !rightHandUp && !walkForward)
                 {
                     if (rightHandFlag)
                     {
