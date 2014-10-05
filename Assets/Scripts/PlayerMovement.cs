@@ -165,25 +165,27 @@ public class PlayerMovement : MonoBehaviour
                 baseHandslocalRotation.y = RightHand.transform.localRotation.y;
                 if (turnLeftFlag)
                 {
-                    transform.Rotate(0.0f, -18.0f, 0.0f);
+                    transform.Rotate(0.0f, -90.0f, 0.0f);
                     localRotationCounter += 1;
                     baseHandslocalRotation = RightHand.transform.localRotation;
-                    if (localRotationCounter >= 5)
+                    turnLeftFlag = false;
+        /*            if (localRotationCounter >= 5)
                     {
                         turnLeftFlag = false;
                         //baseHandslocalRotation = new Quaternion(baseHandslocalRotation.x, transform.localRotation.y, baseHandslocalRotation.z, baseHandslocalRotation.w);
-                    }
+                    }*/
                 }
                 else if (turnRightFlag)
                 {
-                    transform.Rotate(0.0f, 18.0f, 0.0f);
+                    transform.Rotate(0.0f, 90.0f, 0.0f);
                     localRotationCounter += 1;
                     baseHandslocalRotation = RightHand.transform.localRotation;
-                    if (localRotationCounter >= 5)
+                    turnRightFlag = false;
+            /*        if (localRotationCounter >= 5)
                     {
                         turnRightFlag = false;
                        // baseHandslocalRotation = new Quaternion(baseHandslocalRotation.x, RightHand.transform.localRotation.y, baseHandslocalRotation.z, baseHandslocalRotation.w);
-                    }
+                    }*/
                 }
             }
 
