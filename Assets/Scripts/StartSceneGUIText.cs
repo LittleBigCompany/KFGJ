@@ -69,6 +69,7 @@ public class StartSceneGUIText : MonoBehaviour {
         }
         else
         {
+            this.GetComponent<AudioSource>().mute = true;
             if(Input.GetKey(KeyCode.Space) || Input.GetButtonDown("Fire1"))
             {
                 int level = Random.Range(2, Application.levelCount);
