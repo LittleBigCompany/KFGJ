@@ -24,7 +24,7 @@ public class StartSceneGUIText : MonoBehaviour {
         {
             text += txt + "\n";
         }
-        text += "\nNacisnij spacje";
+        text += "\nPress space or\n A on XboX360 Controller";
         if(this.guiText == null)
         {
             Debug.LogError("ERROR!!! This script should be attached to GUIText!!!");
@@ -55,12 +55,25 @@ public class StartSceneGUIText : MonoBehaviour {
             }
 
             if (i == text.Length) showText = false;
+
+            if(Input.GetKey(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+            {
+                this.guiText.text = "";
+                foreach(string t in TextLines)
+                {
+                    this.guiText.text += t + "\n";
+                }
+                this.guiText.text += "\nPress space or\n A on XboX360 Controller";
+                showText = false;
+            }
         }
         else
         {
-            if(Input.GetKey(KeyCode.Space))
+            if(Input.GetKey(KeyCode.Space) || Input.GetButtonDown("Fire1"))
             {
-                Application.LoadLevel(Application.loadedLevel + 1);
+                int level = Random.Range(2, Application.levelCount);
+                Debug.Log(level);
+                Application.LoadLevel(level);
             }
         }
 	}
