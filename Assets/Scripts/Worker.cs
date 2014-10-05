@@ -18,7 +18,7 @@ public class Worker : MonoBehaviour {
 	void Update () {
 	    if(playerDetected)
         {
-            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.forward * 10.0f, 0.1f);
+            rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, this.transform.forward * 150.0f, 0.1f);
         }
 	}
 
