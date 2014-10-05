@@ -1,20 +1,13 @@
 fileFormatVersion: 2
-guid: a049d52b9710c48478a7b1a7f15ababe
+guid: 2444f661fd8155c4895a86ac7742db1d
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: florescent
-    100002: //RootNode
-    100004: Plane01
-    400000: florescent
-    400002: //RootNode
-    400004: Plane01
-    2300000: florescent
-    2300002: Plane01
-    3300000: florescent
-    3300002: Plane01
-    4300000: florescent
-    4300002: Plane01
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Box001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -35,7 +28,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
