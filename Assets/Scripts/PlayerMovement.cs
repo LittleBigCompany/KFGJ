@@ -18,9 +18,16 @@ public class PlayerMovement : MonoBehaviour
     public PlayerStateController StateCont;
 
     private Quaternion baseHandslocalRotation;
+    private Quaternion rightHandLocalRotBeforeHandsUp;
+    private Quaternion leftHandLocalRotBeforeHandsUp;
     private bool rightHandFlag;
     private bool turnLeftFlag;
     private bool turnRightFlag;
+    private bool leftHandUp = false;
+    private bool rightHandUp = false;
+    private bool handsUp = false;
+    private bool leftFirst = false;
+    private bool rightFirst = false;
     private int localRotationCounter;
 
 	// Use this for initialization
@@ -44,33 +51,39 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetAxis("Vertical") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * MovingVerticalSpeed, 0.1f);
-                if (rightHandFlag)
+                if (!leftHandUp && !rightHandUp)
                 {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
-                }
-                else
-                {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    if (rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
+                    }
+                    else
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical") > 0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.forward * -MovingVerticalSpeed, 0.1f);
-                if (rightHandFlag)
+                if (!leftHandUp && !rightHandUp)
                 {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
-                }
-                else
-                {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    if (rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
+                    }
+                    else
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    }
                 }
             }
 
@@ -78,45 +91,53 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetAxis("Horizontal") < -0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * MovingHorizontalSpeed, 0.1f);
-                if (rightHandFlag)
+                if (!leftHandUp && !rightHandUp)
                 {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
-                }
-                if (!rightHandFlag)
-                {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    if (rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
+                    }
+                    if (!rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal") > 0.3f)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, transform.right * -MovingHorizontalSpeed, 0.1f);
-                if (rightHandFlag)
+                if (!leftHandUp && !rightHandUp)
                 {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
+                    if (rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x - 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = false;
+                    }
+                    if (!rightHandFlag)
+                    {
+                        RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
+                        if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
+                    }
                 }
-                if (!rightHandFlag)
-                {
-                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x - 0.01f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.01f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed);
-                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.05f) rightHandFlag = true;
-                }
-
             }
 
             //When we stop
             if (rigidbody.velocity == Vector3.zero)
             {
                 rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.zero, 0.1f);
-                RightHand.transform.localRotation = Quaternion.Slerp(RightHand.transform.localRotation, baseHandslocalRotation, 0.1f);
-                LeftHand.transform.localRotation = Quaternion.Slerp(LeftHand.transform.localRotation, baseHandslocalRotation, 0.1f);
-                if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.0f) rightHandFlag = true;
-                else if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.0f) rightHandFlag = false;
+                if (!leftHandUp && !rightHandUp)
+                {
+                    RightHand.transform.localRotation = Quaternion.Slerp(RightHand.transform.localRotation, baseHandslocalRotation, 0.1f);
+                    LeftHand.transform.localRotation = Quaternion.Slerp(LeftHand.transform.localRotation, baseHandslocalRotation, 0.1f);
+                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.0f) rightHandFlag = true;
+                    else if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.0f) rightHandFlag = false;
+                }
             }
 
             //Turning Left/Right 90 degrees
@@ -154,6 +175,73 @@ public class PlayerMovement : MonoBehaviour
                     {
                         turnRightFlag = false;
                        // baseHandslocalRotation = new Quaternion(baseHandslocalRotation.x, RightHand.transform.localRotation.y, baseHandslocalRotation.z, baseHandslocalRotation.w);
+                    }
+                }
+            }
+
+            //Stuff with controlling hands
+            if(Input.GetAxis("HandsUp") < -0.3f || Input.GetMouseButtonDown(1))
+            {
+                rightHandUp = true;
+                leftHandUp = false;
+                handsUp = true;
+            }
+            else if(Input.GetAxis("HandsUp") > 0.3f || Input.GetMouseButtonDown(0))
+            {
+                rightHandUp = false;
+                leftHandUp = true;
+                handsUp = true;
+            }
+
+            if(rightHandUp)
+            {
+                if (handsUp)
+                {
+                    if (!rightFirst)
+                    {
+                        rightHandLocalRotBeforeHandsUp = RightHand.transform.localRotation;
+                        rightFirst = true;
+                    }
+                    RightHand.transform.localRotation = Quaternion.Lerp(RightHand.transform.localRotation, new Quaternion(RightHand.transform.localRotation.x + 0.03f, RightHand.transform.localRotation.y, RightHand.transform.localRotation.z, RightHand.transform.localRotation.w), HandsMovingVerticalSpeed * 10.0f);
+                    if (RightHand.transform.localRotation.x - baseHandslocalRotation.x > 0.1f)
+                    {
+                        handsUp = false;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Trololololo");
+                    RightHand.transform.localRotation = rightHandLocalRotBeforeHandsUp;
+                    if (RightHand.transform.localRotation.x - rightHandLocalRotBeforeHandsUp.x > 0.0f)
+                    {
+                        rightHandUp = false;
+                        rightFirst = false;
+                    }
+                }
+            }
+            if(leftHandUp)
+            {
+                if (handsUp)
+                {
+                    if(!leftFirst)
+                    {
+                        leftHandLocalRotBeforeHandsUp = LeftHand.transform.localRotation;
+                        leftFirst = true;
+                    }
+                    LeftHand.transform.localRotation = Quaternion.Lerp(LeftHand.transform.localRotation, new Quaternion(LeftHand.transform.localRotation.x + 0.03f, LeftHand.transform.localRotation.y, LeftHand.transform.localRotation.z, LeftHand.transform.localRotation.w), HandsMovingVerticalSpeed * 10.0f);
+                    if (LeftHand.transform.localRotation.x - baseHandslocalRotation.x > 0.1f)
+                    {
+                        handsUp = false;
+                    }
+                }
+                else
+                {
+                    Debug.Log("eeeeee");
+                    LeftHand.transform.localRotation = leftHandLocalRotBeforeHandsUp;
+                    if (LeftHand.transform.localRotation.x - leftHandLocalRotBeforeHandsUp.x > 0.0f)
+                    {
+                        leftHandUp = false;
+                        leftFirst = false;
                     }
                 }
             }
